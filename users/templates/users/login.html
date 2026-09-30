@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | WildGuard AI</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'users/style.css' %}">
+
+</head>
+
+
+<body>
+
+    <div class="auth-page">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                WildGuard<span>AI</span>
+            </div>
+
+            <h1>Welcome Back</h1>
+
+            <p class="auth-description">
+                Login to access your animal detection dashboard.
+            </p>
+
+
+            {% if error %}
+
+                <p style="
+                    color: #c0392b;
+                    text-align: center;
+                    margin-bottom: 20px;
+                ">
+                    {{ error }}
+                </p>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn full-width"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="auth-footer">
+
+                Don't have an account?
+
+                <a href="{% url 'signup' %}">
+                    Create Account
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

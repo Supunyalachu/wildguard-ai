@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WildGuard AI</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WildGuard<span>AI</span>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="{% url 'login' %}" class="login-btn">
+                Login
+            </a>
+
+            <a href="{% url 'signup' %}" class="signup-btn">
+                Get Started
+            </a>
+        </div>
+
+    </nav>
+
+
+    <main class="hero">
+
+        <div class="hero-content">
+
+            <p class="tag">
+                AI-POWERED ANIMAL DETECTION
+            </p>
+
+            <h1>
+                Smarter detection.<br>
+                Safer surroundings.
+            </h1>
+
+            <p class="description">
+                Monitor your surroundings with intelligent
+                animal detection powered by artificial intelligence.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'signup' %}" class="primary-btn">
+                    Get Started
+                </a>
+
+                <a href="{% url 'login' %}" class="secondary-btn">
+                    I already have an account
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

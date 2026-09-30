@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | WildGuard AI</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'users/style.css' %}">
+
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WildGuard<span>AI</span>
+        </div>
+
+
+        <div class="nav-buttons">
+
+            <span>
+                Welcome, {{ user.username }}
+            </span>
+
+            <a href="{% url 'logout' %}"
+               class="signup-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="dashboard">
+
+        <div class="dashboard-header">
+
+            <p class="tag">
+                ANIMAL MONITORING SYSTEM
+            </p>
+
+            <h1>
+                Welcome back, {{ user.username }} 👋
+            </h1>
+
+            <p>
+                Your intelligent animal detection dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    📷
+                </div>
+
+                <h2>Camera Detection</h2>
+
+                <p>
+                    Monitor your camera and detect animals
+                    using our AI model.
+                </p>
+
+                <a href="{% url 'detect' %}" class="primary-btn">
+                    Start Detection
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+                    🐾
+                </div>
+
+                <h2>Detected Animals</h2>
+
+                <p>
+                    View animals detected by the system.
+                </p>
+
+                <button class="secondary-dashboard-btn"> View Detections </button>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-icon"> 
+                    📊
+                </div>
+
+                <h2>Detection History</h2>
+
+                <a href="{% url 'history' %}"
+                    class="secondary-dashboard-btn">
+                    View History
+                </a>
+
+                <button class="secondary-dashboard-btn">
+                    View History
+                </button>
+                
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Detection History | WildGuard AI</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'users/style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WildGuard<span>AI</span>
+        </div>
+
+        <div class="nav-buttons">
+
+            <a href="{% url 'dashboard' %}"
+               class="login-btn">
+                Dashboard
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="signup-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HISTORY PAGE -->
+
+    <main class="history-page">
+
+        <div class="history-header">
+
+            <p class="tag">
+                DETECTION HISTORY
+            </p>
+
+            <h1>
+                Your previous detections
+            </h1>
+
+            <p>
+                Review the animals detected by WildGuard AI.
+            </p>
+
+        </div>
+
+
+        <!-- DETECTIONS EXIST -->
+
+        {% if detections %}
+
+            <div class="history-list">
+
+                {% for detection in detections %}
+
+                    <div class="history-item">
+
+                        <div class="history-item-info">
+
+                            <h2>
+                                🐾 {{ detection.animal }}
+                            </h2>
+
+                            <p>
+                                Confidence:
+                                <strong>
+                                    {{ detection.confidence|floatformat:2 }}%
+                                </strong>
+                            </p>
+
+                            <p>
+                                Detected:
+                                {{ detection.detected_at|date:"d M Y, h:i A" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+        <!-- NO DETECTIONS -->
+
+        {% else %}
+
+            <div class="history-empty">
+
+                <div class="history-icon">
+                    🐾
+                </div>
+
+                <h2>
+                    No detections yet
+                </h2>
+
+                <p>
+                    Your detection results will appear here
+                    once you start using the animal detection system.
+                </p>
+
+                <a href="{% url 'detect' %}"
+                   class="primary-btn">
+                    Start Detection
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+
+</html>

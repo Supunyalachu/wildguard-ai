@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | WildGuard AI</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
+</head>
+
+<body>
+
+    <div class="auth-page">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                WildGuard<span>AI</span>
+            </div>
+
+            <h1>Create Account</h1>
+            {% if error %}
+                <p style="color: #c0392b; margin-bottom: 20px; text-align: center;">
+                    {{ error }}
+                </p>
+            {% endif %}
+
+            <p class="auth-description">
+                Create your account to start using WildGuard AI.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        placeholder="Confirm your password"
+                        required
+                    >
+                </div>
+
+
+                <button type="submit" class="primary-btn full-width">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p class="auth-footer">
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

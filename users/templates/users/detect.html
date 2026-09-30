@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Animal Detection | WildGuard AI</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'users/style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WildGuard<span>AI</span>
+        </div>
+
+        <div class="nav-buttons">
+
+            <a href="{% url 'dashboard' %}"
+               class="login-btn">
+                Dashboard
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="signup-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- DETECTION PAGE -->
+
+    <main class="detection-page">
+
+        <div class="detection-header">
+
+            <p class="tag">
+                AI ANIMAL DETECTION
+            </p>
+
+            <h1>
+                Identify an animal
+            </h1>
+
+            <p>
+                Upload an image and let WildGuard AI
+                analyze it using our animal detection model.
+            </p>
+
+        </div>
+
+
+        <!-- UPLOAD CARD -->
+
+        <div class="detection-card">
+
+            <div class="upload-icon">
+                📷
+            </div>
+
+            <h2>
+                Upload an image
+            </h2>
+
+            <p>
+                Choose a clear image containing an animal.
+            </p>
+
+
+            <form method="POST"
+                  action="{% url 'detect' %}"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="file-input-wrapper">
+
+                    <input type="file"
+                           name="image"
+                           accept="image/*"
+                           required>
+
+                </div>
+
+
+                <button type="submit"
+                        class="primary-btn detection-btn">
+
+                    Detect Animal
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULT AREA -->
+
+        <div class="result-card">
+
+            <p class="tag">
+                DETECTION RESULT
+            </p>
+
+            <h2>
+                Your result will appear here
+            </h2>
+
+            <p>
+                Once the AI model is connected, the detected
+                animal and confidence score will be displayed here.
+            </p>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
