@@ -29,7 +29,11 @@ SECRET_KEY = 'django-insecure-6gaqmbtgpztb&ra^k_s^fb3$%agq1*$32se%wi4dsre)+n4w-#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "wildguard-ai-5.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
