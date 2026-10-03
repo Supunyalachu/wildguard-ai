@@ -118,7 +118,9 @@ def history(request):
 @require_POST
 def detect_api(request):
     print("🔥🔥🔥 DETECT API WAS CALLED 🔥🔥🔥", flush=True)
+    print("STEP 1: Getting uploaded image...", flush=True)
     image = request.FILES.get('image')
+    print("STEP 2: Image received:", image, flush=True)
 
     if not image:
         return JsonResponse({
