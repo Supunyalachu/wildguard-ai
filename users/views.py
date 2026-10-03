@@ -13,13 +13,12 @@ from ultralytics import YOLO
 from .models import Detection, Alert
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
-
+import gc
 MODEL_PATH = os.path.join(
     settings.BASE_DIR,
     'models',
     'animal_detector_v1.pt'
 )
-
 model = YOLO(MODEL_PATH)
 
 def home(request):
@@ -135,13 +134,13 @@ def detect_api(request):
         img.thumbnail((640, 640))
 
         print("Image resized successfully", flush=True)
-
+        gc.collect()  # Force garbage collection to free up memory
         print("Running YOLO...", flush=True)
 
         results = model(
             img,
             conf=0.45,
-            imgsz=320,
+            imgsz=224,
             device='cpu',
             verbose=False
         )
