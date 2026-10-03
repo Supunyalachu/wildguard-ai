@@ -131,7 +131,7 @@ def detect_api(request):
         img = Image.open(image).convert('RGB')
         print("Image opened successfully", flush=True)
 
-        img.thumbnail((640, 640))
+        img.thumbnail((320, 320))
 
         print("Image resized successfully", flush=True)
         gc.collect()  # Force garbage collection to free up memory
@@ -144,6 +144,7 @@ def detect_api(request):
             device='cpu',
             verbose=False
         )
+        gc.collect()  # Force garbage collection to free up memory
         print("YOLO completed", flush=True)
 
         detections = []
