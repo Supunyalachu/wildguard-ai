@@ -11,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
 from ultralytics import YOLO
 from .models import Detection, Alert
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 
 MODEL_PATH = os.path.join(
     settings.BASE_DIR,
@@ -212,3 +214,19 @@ def test_email(request):
         'success': True,
         'message': 'Test email sent.'
     }) 
+
+def create_admin(request):
+    User = get_user_model()
+
+    username = "admin"
+    password = "Admin@12345"
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(
+            username=username,
+            email="admin@wildguard.com",
+            password=password
+        )
+        return HttpResponse("Admin created successfully")
+
+    return HttpResponse("Admin already exists")
