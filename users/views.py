@@ -130,12 +130,22 @@ def detect_api(request):
 
     try:
         img = Image.open(image).convert('RGB')
+        print("Image opened successfully", flush=True)
+
+        img.thumbnail((640, 640))
+
+        print("Image resized successfully", flush=True)
+
+        print("Running YOLO...", flush=True)
 
         results = model(
             img,
             conf=0.45,
+            imgsz=320,
+            device='cpu',
             verbose=False
         )
+        print("YOLO completed", flush=True)
 
         detections = []
 
