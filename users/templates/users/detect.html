@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,8 +6,7 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Animal Detection | WildGuard AI</title>
 
@@ -82,9 +82,7 @@
                 Choose a clear image containing an animal.
             </p>
 
-
-            <form method="POST"
-                  action="{% url 'detect' %}"
+            <form id="detectionForm"
                   enctype="multipart/form-data">
 
                 {% csrf_token %}
@@ -92,15 +90,16 @@
                 <div class="file-input-wrapper">
 
                     <input type="file"
+                           id="imageInput"
                            name="image"
                            accept="image/*"
                            required>
 
                 </div>
 
-
                 <button type="submit"
-                        class="primary-btn detection-btn">
+                        class="primary-btn detection-btn"
+                        id="detectButton">
 
                     Detect Animal
 
@@ -113,25 +112,162 @@
 
         <!-- RESULT AREA -->
 
-        <div class="result-card">
+        <div class="result-card" id="resultCard">
 
             <p class="tag">
                 DETECTION RESULT
             </p>
 
-            <h2>
+            <h2 id="resultTitle">
                 Your result will appear here
             </h2>
 
-            <p>
-                Once the AI model is connected, the detected
-                animal and confidence score will be displayed here.
+            <p id="resultMessage">
+                Upload an image and click
+                "Detect Animal" to start.
             </p>
 
         </div>
 
     </main>
 
+
+    <script>
+
+        const form = document.getElementById("detectionForm");
+        const imageInput = document.getElementById("imageInput");
+        const resultTitle = document.getElementById("resultTitle");
+        const resultMessage = document.getElementById("resultMessage");
+        const detectButton = document.getElementById("detectButton");
+
+
+        form.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const image = imageInput.files[0];
+
+            if (!image) {
+
+                resultTitle.textContent = "No image selected";
+                resultMessage.textContent =
+                    "Please choose an image first.";
+
+                return;
+            }
+
+
+            const formData = new FormData();
+
+            formData.append("image", image);
+
+
+            detectButton.disabled = true;
+            detectButton.textContent = "Detecting...";
+
+            resultTitle.textContent = "Analyzing image...";
+            resultMessage.textContent =
+                "WildGuard AI is processing your image.";
+
+
+            try {
+
+                const response = await fetch(
+                    "{% url 'detect_api' %}",
+                    {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-CSRFToken":
+                                document.querySelector(
+                                    "[name=csrfmiddlewaretoken]"
+                                ).value
+                        }
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok || !data.success) {
+
+                    resultTitle.textContent = "Detection failed";
+
+                    resultMessage.textContent =
+                        data.error ||
+                        "Something went wrong while detecting the animal.";
+
+                    return;
+                }
+
+
+                if (!data.detected) {
+
+                    resultTitle.textContent =
+                        "No animal detected";
+
+                    resultMessage.textContent =
+                        data.message;
+
+                    return;
+                }
+
+
+                resultTitle.textContent =
+                    "Animal Detected";
+
+
+                let resultHTML = "";
+
+
+                data.detections.forEach(function(detection) {
+
+                    resultHTML += `
+                        <div class="detection-result">
+
+                            <h3>
+                                🐾 ${detection.animal}
+                            </h3>
+
+                            <p>
+                                Confidence:
+                                <strong>
+                                    ${detection.confidence}%
+                                </strong>
+                            </p>
+
+                        </div>
+                    `;
+
+                });
+
+
+                resultMessage.innerHTML = resultHTML;
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                resultTitle.textContent =
+                    "Something went wrong";
+
+                resultMessage.textContent =
+                    "Could not connect to the detection server.";
+
+            } finally {
+
+                detectButton.disabled = false;
+                detectButton.textContent = "Detect Animal";
+
+            }
+
+        });
+
+    </script>
+
 </body>
 
 </html>
+```
