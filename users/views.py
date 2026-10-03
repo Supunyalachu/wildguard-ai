@@ -117,7 +117,7 @@ def history(request):
 @csrf_exempt
 @require_POST
 def detect_api(request):
-
+    print("🔥🔥🔥 DETECT API WAS CALLED 🔥🔥🔥", flush=True)
     image = request.FILES.get('image')
 
     if not image:
